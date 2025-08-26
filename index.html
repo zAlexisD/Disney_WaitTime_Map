@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Disneyland Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+
+
+  <!-- Custom CSS -->
+  <style>
+    #map {
+      height: 100vh; /* full screen height */
+      width: 100%;   /* full width */
+    }
+  </style>
+</head>
+
+<body>
+    <select id="daySelect">
+    <option value="Overall.json">Overall</option>
+    <option value="Monday.json">Monday</option>
+    <option value="Tuesday.json">Tuesday</option>
+    <option value="Wednesday.json">Wednesday</option>
+    <option value="Thursday.json">Thursday</option>
+    <option value="Friday.json">Friday</option>
+    <option value="Saturday.json">Saturday</option>
+    <option value="Sunday.json">Sunday</option>
+    </select>
+
+    <select id="hourSelect">
+    <option value="Overall">Overall</option>
+    <option value="8h30">8h30</option>
+    <option value="9h30">9h30</option>
+    <option value="10h30">10h30</option>
+    <option value="11h30">11h30</option>
+    <option value="12h30">12h30</option>
+    <option value="13h30">13h30</option>
+    <option value="14h30">14h30</option>
+    <option value="15h30">15h30</option>
+    <option value="16h30">16h30</option>
+    <option value="17h30">17h30</option>
+    <option value="18h30">18h30</option>
+    <option value="19h30">19h30</option>
+    <option value="20h30">20h30</option>
+    <option value="21h30">21h30</option>
+    <option value="22h">22h</option>
+    <option value="22h30">22h30</option>
+    </select>
+  <!-- Map container -->
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+  <!-- Your custom script -->
+  <script src="app.js"></script>
+</body>
+</html>
