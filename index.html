@@ -16,40 +16,122 @@
       height: 100vh; /* full screen height */
       width: 100%;   /* full width */
     }
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      display: flex;
+      gap: 15px;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .control-group label {
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .control-group select {
+      font-size: 16px;
+      padding: 6px 10px;
+    }
+    .leaflet-popup-content {
+      font-size: 16px;   /* bigger text */
+      line-height: 1.4;
+    }
+    .leaflet-popup-content-wrapper {
+      max-width: 300px;  /* default is 240px */
+      min-width: 180px;  /* ensures they don’t shrink too much */
+      padding: 10px;
+    }
+    .leaflet-popup-tip {
+      width: 12px;
+      height: 12px;
+    }
+    #chartPanel {
+      position: fixed;
+      bottom: -300px; /* hidden off-screen */
+      left: 0;
+      width: 100%;
+      height: 300px;
+      background: white;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+      padding: 10px;
+      transition: bottom 0.3s ease-in-out;
+      z-index: 1500; /* above map */
+    }
+    #chartPanel.active {
+      bottom: 0; /* slide up */
+    }
+    #chartPanel h3 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      text-align: center;
+    }
+    #closePanel {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Dropdowns -->
+  <div id="controls">
+    <label for="daySelect">Select Day:</label>
     <select id="daySelect">
-    <option value="Overall.json">Overall</option>
-    <option value="Monday.json">Monday</option>
-    <option value="Tuesday.json">Tuesday</option>
-    <option value="Wednesday.json">Wednesday</option>
-    <option value="Thursday.json">Thursday</option>
-    <option value="Friday.json">Friday</option>
-    <option value="Saturday.json">Saturday</option>
-    <option value="Sunday.json">Sunday</option>
+      <option value="Overall.json">Overall</option>
+      <option value="Monday.json">Monday</option>
+      <option value="Tuesday.json">Tuesday</option>
+      <option value="Wednesday.json">Wednesday</option>
+      <option value="Thursday.json">Thursday</option>
+      <option value="Friday.json">Friday</option>
+      <option value="Saturday.json">Saturday</option>
+      <option value="Sunday.json">Sunday</option>
     </select>
 
+    <label for="hourSelect">Select Hour:</label>
     <select id="hourSelect">
-    <option value="Overall">Overall</option>
-    <option value="8h30">8h30</option>
-    <option value="9h30">9h30</option>
-    <option value="10h30">10h30</option>
-    <option value="11h30">11h30</option>
-    <option value="12h30">12h30</option>
-    <option value="13h30">13h30</option>
-    <option value="14h30">14h30</option>
-    <option value="15h30">15h30</option>
-    <option value="16h30">16h30</option>
-    <option value="17h30">17h30</option>
-    <option value="18h30">18h30</option>
-    <option value="19h30">19h30</option>
-    <option value="20h30">20h30</option>
-    <option value="21h30">21h30</option>
-    <option value="22h">22h</option>
-    <option value="22h30">22h30</option>
+      <option value="Overall">Overall</option>
+      <option value="8h30">8h30</option>
+      <option value="9h30">9h30</option>
+      <option value="10h30">10h30</option>
+      <option value="11h30">11h30</option>
+      <option value="12h30">12h30</option>
+      <option value="13h30">13h30</option>
+      <option value="14h30">14h30</option>
+      <option value="15h30">15h30</option>
+      <option value="16h30">16h30</option>
+      <option value="17h30">17h30</option>
+      <option value="18h30">18h30</option>
+      <option value="19h30">19h30</option>
+      <option value="20h30">20h30</option>
+      <option value="21h30">21h30</option>
+      <option value="22h">22h</option>
+      <option value="22h30">22h30</option>
     </select>
+  </div>
+  
+  <!-- Chart popup -->
+  <div id="chartPanel">
+    <button id="closePanel">✖</button>
+    <h3 id="chartTitle">Ride stats</h3>
+    <canvas id="rideChart"></canvas>
+  </div>
+
   <!-- Map container -->
   <div id="map"></div>
 
@@ -58,7 +140,10 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
 
-  <!-- Your custom script -->
+  <!-- Chart JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Script -->
   <script src="app.js"></script>
 </body>
 </html>
