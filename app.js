@@ -76,7 +76,25 @@ function showChart(ride) {
   panel.classList.add("active");
 }
 
-// 4. Function to load data and update markers
+// 4. Function to make a custim pin for markers
+function createPinIcon(color = "red") {
+  const svgIcon = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="41" viewBox="0 0 25 41">
+      <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 10.5 12.5 28.5 12.5 28.5S25 23 25 12.5C25 5.6 19.4 0 12.5 0z" 
+            fill="${color}" stroke="black" stroke-width="2"/>
+      <circle cx="12.5" cy="12.5" r="5" fill="white"/>
+    </svg>
+  `;
+  
+  return L.divIcon({
+    html: svgIcon,
+    className: "",   // remove default styles
+    iconSize: [25, 41],
+    iconAnchor: [12, 41] // anchor at bottom tip of pin
+  });
+}
+
+// 5. Function to load data and update markers
 function loadData(dayFile, hourChoice) {
   fetch(dayFile)
     .then(res => res.json())
@@ -104,14 +122,8 @@ function loadData(dayFile, hourChoice) {
           color = "red";
         }
 
-        // Create a colored circle marker instead of default pin
-        const marker = L.circleMarker([ride.Latitude, ride.Longitude], {
-          radius: 8,
-          fillColor: color,
-          color: "#000",
-          weight: 1,
-          opacity: 1,
-          fillOpacity: 0.8
+        const marker = L.marker([ride.Latitude, ride.Longitude], {
+          icon: createPinIcon(color)
         }).addTo(map);
 
         // On click, show the chart in the side panel
